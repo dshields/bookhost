@@ -1,0 +1,53 @@
+plugins {
+      id "io.spring.dependency-management" version "0.5.1.RELEASE"
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: "io.spring.dependency-management"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+war.archiveName = 'mp3.war'
+
+dependencyManagement {
+   imports {
+       mavenBom 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-bom:2.0.0'
+       mavenBom 'org.jboss.arquillian:arquillian-bom:1.1.5.Final'
+       mavenBom 'org.jboss.arquillian.extension:arquillian-drone-bom:2.0.0.Alpha4'
+   }
+}
+ 
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['**/*.jar'])
+    compile 'commons-lang:commons-lang:2.4'
+    compile 'org.hibernate:hibernate-core:4.2.12.Final'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final'
+    compile 'org.apache.logging.log4j:log4j-1.2-api:2.1'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'com.h2database:h2:1.4.182'
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    providedCompile 'org.apache.openejb:javaee-api:6.0-6'
+
+    testCompile 'commons-lang:commons-lang:2.4'
+    testCompile 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-depchain'
+    testCompile 'org.jboss.arquillian.junit:arquillian-junit-container'
+    testCompile 'org.jboss.arquillian.extension:arquillian-drone-webdriver-depchain'
+    testCompile "junit:junit:4.11"
+    //testCompile "org.apache.openejb:openejb-core:4.7.2"
+    //testCompile "org.apache.openejb:ziplock:1.7.2"
+    //testCompile "net.sourceforge.htmlunit:htmlunit:2.8"
+
+    //testRuntime 'org.apache.openejb:arquillian-tomee-remote:1.7.2'
+    testRuntime 'org.apache.openejb:arquillian-tomee-embedded:1.7.2'
+
+    runtime 'javax.servlet:jstl:1.1.2'
+}

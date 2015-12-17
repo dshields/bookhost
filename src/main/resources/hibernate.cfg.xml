@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration
+        PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- local connection properties -->
+        <property name="hibernate.connection.url">
+            jdbc:h2:file:ampdb
+        </property>
+        <property name="hibernate.connection.driver_class">
+            org.h2.Driver
+        </property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
+        <!-- property name="hibernate.connection.pool_size"></property -->
+        <property name="c3p0.initialPoolSize">10</property>
+        <property name="c3p0.min_size">5</property>
+        <property name="c3p0.max_size">10</property>
+        <property name="c3p0.timeout">5000</property>
+        <property name="c3p0.max_statements">300</property>
+        <property name="c3po.idle_test_period">3000</property>
+        <property name="c3po.maxIdleTime">30</property>
+        <property name="c3po.propertyCycle">300</property>
+        <property name="c3po.acquireIncrement">3</property>
+        <property name="c3po.testConnectionOnCheckout">false</property>
+        <property name="c3po.autoCommitOnClose">false</property>
+        <property name="c3po.numHelperThreads">10</property>
+        <!-- dialect for HypersonicSQL -->
+        <property name="dialect">
+            org.hibernate.dialect.HSQLDialect
+        </property>
+
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.transaction.factory_class">
+            org.hibernate.transaction.JDBCTransactionFactory
+        </property>
+        <mapping resource="amplitude/persistence/hibernate/Album.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/Artist.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/Genre.hbm.xml"/>
+        <mapping
+                resource="amplitude/persistence/hibernate/Playlist.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/Role.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/Song.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/Tag.hbm.xml"/>
+        <mapping resource="amplitude/persistence/hibernate/User.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

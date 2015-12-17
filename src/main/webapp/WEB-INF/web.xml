@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+        PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+        "http://java.sun.com/j2ee/dtds/web-app_2.2.dtd">
+
+<web-app>
+    <servlet>
+        <servlet-name>playservlet</servlet-name>
+        <servlet-class>amplitude.servlets.PlayServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>songservlet</servlet-name>
+        <servlet-class>amplitude.servlets.SongServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>selectservlet</servlet-name>
+        <servlet-class>amplitude.servlets.SelectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>setupservlet</servlet-name>
+        <servlet-class>amplitude.servlets.SetupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>playservlet</servlet-name>
+        <url-pattern>/play</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>songservlet</servlet-name>
+        <url-pattern>/songs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>selectservlet</servlet-name>
+        <url-pattern>/select</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>setupservlet</servlet-name>
+        <url-pattern>/setup</url-pattern>
+    </servlet-mapping>
+    <!-- The Usual Welcome File List -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!--  Security Example -->
+    <!-- winamp works with basic authentication -->
+    <!--
+  <security-constraint>
+      <web-resource-collection>
+          <web-resource-name>Amplitude Modify</web-resource-name>
+          <url-pattern>/showOptions.do</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+          <role-name>admin</role-name>
+      </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+      <web-resource-collection>
+          <web-resource-name>Amplitude</web-resource-name>
+          <url-pattern>*.jsp</url-pattern>
+          <url-pattern>*.do</url-pattern>
+          <url-pattern>/songs</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+          <role-name>mp3</role-name>
+      </auth-constraint>
+  </security-constraint>
+  <login-config>
+      <auth-method>BASIC</auth-method>
+      <realm-name>Amplitude</realm-name>
+  </login-config>
+  <security-role>
+    <description> Admin </description>
+    <role-name> admin </role-name>
+  </security-role>
+  <security-role>
+    <description> Amplitude user</description>
+    <role-name> mp3 </role-name>
+  </security-role>
+  -->
+</web-app>

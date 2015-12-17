@@ -1,0 +1,35 @@
+build/
+.gradle/
+*.class
+*.log
+
+#### Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ids
+*.orig
+
+#### Eclipse
+.project
+.classpath
+.settings/
+bin/**
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+#### Windows
+Thumbs.db
+Desktop.ini
+
+#### Mac OSX
+.DS_Store
+.svn
+# Thumbnails
+._*
+.Spotlight-V100
+.Trashes
