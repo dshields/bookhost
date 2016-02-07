@@ -54,4 +54,4 @@ HTMLBuilder = {
         el = el + "</" + e + ">"; 
         return el;
     }
-}
+};

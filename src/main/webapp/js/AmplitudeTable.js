@@ -89,7 +89,7 @@ AmplitudeTable = function()
    function addDateColumn(columnName,columnLabel)
    {
       var newColumn =  
-          {  field:columnName, label:columnLabel, dataType:"Date", format:"%Y/%m/%d", noSort:true, cls:"dateClass" }
+          {  field:columnName, label:columnLabel, dataType:"Date", format:"%Y/%m/%d", noSort:true, cls:"dateClass" };
       this.columns.push(newColumn);
       return newColumn;
    }
@@ -155,4 +155,4 @@ AmplitudeTable = function()
         var containerDiv = dojo.byId(this.divId);
         containerDiv.innerHTML = this.makeTable();
    }
-}
+};

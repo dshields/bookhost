@@ -5,7 +5,6 @@
 package amplitude.utils;
 
 import java.io.*;
-import java.util.Hashtable;
 
 /**
  * Creation date: (3/5/2001 1:10:33 PM) Pass the file through with no
@@ -31,7 +30,7 @@ public class FileProc {
         mP3FileName = newMP3FileName;
     }
 
-    public void processMP3Stream(Hashtable args, OutputStream os) throws Exception {
+    public void processMP3Stream(OutputStream os) throws Exception {
         File f = new File(mP3FileName);
         if (!f.exists()) {
             return; // Fail silently

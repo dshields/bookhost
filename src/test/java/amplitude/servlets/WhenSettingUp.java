@@ -1,6 +1,5 @@
 package amplitude.servlets;
 
-import amplitude.persistence.hibernate.DBUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -16,8 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,8 +41,6 @@ public class WhenSettingUp {
 
     @After
     public void tearDown() throws SQLException, ClassNotFoundException {
-        DBUtils utils = new DBUtils();
-        utils.deleteDatabase();
     }
 
     @Test

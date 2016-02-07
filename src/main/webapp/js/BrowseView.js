@@ -140,7 +140,7 @@ AlbumTable = function()
     {
       this.rows = this.rows.concat(albums);
     }    
-}
+};
 
 SongTable = function() 
 {
@@ -157,7 +157,7 @@ SongTable = function()
         this.rows = this.rows.concat(songs);
     }
 
-}
+};
 
 ArtistTable = function() 
 {

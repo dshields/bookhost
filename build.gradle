@@ -5,6 +5,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
 apply plugin: "io.spring.dependency-management"
 
 repositories {
@@ -42,11 +43,7 @@ dependencies {
     testCompile 'org.jboss.arquillian.junit:arquillian-junit-container'
     testCompile 'org.jboss.arquillian.extension:arquillian-drone-webdriver-depchain'
     testCompile "junit:junit:4.11"
-    //testCompile "org.apache.openejb:openejb-core:4.7.2"
-    //testCompile "org.apache.openejb:ziplock:1.7.2"
-    //testCompile "net.sourceforge.htmlunit:htmlunit:2.8"
 
-    //testRuntime 'org.apache.openejb:arquillian-tomee-remote:1.7.2'
     testRuntime 'org.apache.openejb:arquillian-tomee-embedded:1.7.2'
 
     runtime 'javax.servlet:jstl:1.1.2'

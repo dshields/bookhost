@@ -4,8 +4,6 @@
  */
 package amplitude.servlets;
 
-import amplitude.model.IAmplitudeDb;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +17,6 @@ abstract public class BaseServlet extends HttpServlet {
      */
     private static final long serialVersionUID = -5160885560618053380L;
     HttpServletRequest currentRequest;
-
-    public IAmplitudeDb getDAO() {
-        return (IAmplitudeDb) getServletContext().getAttribute("dao");
-    }
 
     public String getPath() {
         String path = currentRequest.getScheme() + "://" + currentRequest.getServerName();
@@ -46,9 +40,7 @@ abstract public class BaseServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (WebHelper.isFirstRun() && WebHelper.requestIsLocal(request) && !request.getServletPath().equals("/setup")) {
-            response.sendRedirect("firstrun.jsp");
-        } else if (request.getSession(false) == null) {
+        if (request.getSession(false) == null) {
             handleRequest(request, response);
             //response.sendRedirect(response.encodeRedirectURL("logon.jsp?continue="+request.getContextPath()));
         } else {

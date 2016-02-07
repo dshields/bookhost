@@ -96,4 +96,4 @@ PlayView = function()
       }
       return this.DIV({"class":"songs"},this.UL({"class":"songLinks"},elements));
   }
-}
+};
