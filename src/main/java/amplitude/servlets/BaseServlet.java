@@ -18,19 +18,6 @@ abstract public class BaseServlet extends HttpServlet {
     private static final long serialVersionUID = -5160885560618053380L;
     HttpServletRequest currentRequest;
 
-    public String getPath() {
-        String path = currentRequest.getScheme() + "://" + currentRequest.getServerName();
-        if (currentRequest.getServerPort() != 80) {
-            path += ":" + currentRequest.getServerPort();
-        }
-        path += currentRequest.getContextPath();
-        return path;
-    }
-
-    public String getPlayURL() {
-        return getPath() + "/play?s=";
-    }
-
     abstract protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

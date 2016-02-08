@@ -6,15 +6,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.net.URL;
 
-public class SongPage extends BasePage {
+public class BookPage extends BasePage {
 
-    public SongPage(final URL contextURL, final WebDriver driver) {
+    public BookPage(final URL contextURL, final WebDriver driver) {
         super(contextURL, driver);
-        isCurrentPage = ExpectedConditions.titleContains("Songs");
+        isCurrentPage = ExpectedConditions.titleContains("Book");
         waitForCurrentPage();
     }
 
-    public SongPage browse()
+    public BookPage browse()
     {
         element(By.linkText("Browse")).click();
         return this;

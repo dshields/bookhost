@@ -13,17 +13,11 @@ import java.io.*;
 public class FileProc {
     String mP3FileName;
 
-    InputStream mP3Stream;
-
     /**
      * FileProc constructor comment.
      */
     public FileProc() {
         super();
-    }
-
-    public java.lang.String getMP3FileName() {
-        return mP3FileName;
     }
 
     public void setMP3FileName(java.lang.String newMP3FileName) {
