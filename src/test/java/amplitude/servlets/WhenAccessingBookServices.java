@@ -2,10 +2,8 @@ package amplitude.servlets;
 
 import amplitude.resource.Book;
 import amplitude.utils.FileProc;
-import org.apache.cxf.jaxrs.client.WebClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
@@ -18,8 +16,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,9 +34,6 @@ public class WhenAccessingBookServices {
 
     @ArquillianResource
     URL contextPath;
-
-    @Drone
-    FirefoxDriver driver;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -64,16 +64,25 @@ public class WhenAccessingBookServices {
 
     @Test
     public void bookNameIsCorrect() {
-        WebClient client = WebClient.create(contextPath + "");
-        client.accept("application/json");
-        client.path("/book/name");
+        String path = contextPath + "";
+        System.out.println("creating client at " + path);
         try {
-            Thread.currentThread().sleep(500000000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Client client = ClientBuilder.newBuilder().newClient();
+            WebTarget target = client.target(path);
+            target = target.path("book/name");
+            Invocation.Builder builder = target.request();
+            builder.accept("application/json");
+            Response response = builder.get();
+            String book = builder.get(String.class);
+            Assert.assertEquals(book, "Test Book 1");
         }
-        String book = client.get(String.class);
-        Assert.assertEquals(book, "Book 1");
+        catch(WebApplicationException ex) {
+            Response r = ex.getResponse();
+            String message = ex.getMessage();
+            System.out.println(message);
+            System.out.println(r);
+            throw ex;
+        }
     }
 
 }

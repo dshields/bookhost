@@ -17,7 +17,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.net.URL;
@@ -31,7 +31,7 @@ public class WhenAccessingBook {
     URL contextPath;
 
     @Drone
-    FirefoxDriver driver;
+    ChromeDriver driver;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {

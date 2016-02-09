@@ -47,7 +47,11 @@ dependencies {
     testCompile 'org.apache.cxf:cxf-rt-transports-http-jetty:3.1.4'
     testCompile "junit:junit:4.11"
 
-    testRuntime 'org.apache.openejb:arquillian-tomee-embedded:1.7.2'
-
+    testRuntime 'org.apache.openejb:arquillian-tomee-embedded:1.7.2:uber'
+    testRuntime 'org.apache.openejb:tomee-jaxrs:1.7.2'
     runtime 'javax.servlet:jstl:1.1.2'
+}
+
+test {
+    jvmArgs '-Dtomee.classifier=plus -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver'
 }
