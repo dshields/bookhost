@@ -4,6 +4,7 @@ import amplitude.resource.Book;
 import amplitude.utils.FileProc;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
@@ -16,24 +17,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 
-
 @RunWith(Arquillian.class)
 @RunAsClient
-public class WhenAccessingBookServices {
+public class WhenAccessingBookTest {
 
     @ArquillianResource
     URL contextPath;
+
+    @Drone
+    ChromeDriver driver;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -63,26 +61,10 @@ public class WhenAccessingBookServices {
     }
 
     @Test
-    public void bookNameIsCorrect() {
-        String path = contextPath + "";
-        System.out.println("creating client at " + path);
-        try {
-            Client client = ClientBuilder.newBuilder().newClient();
-            WebTarget target = client.target(path);
-            target = target.path("book/name");
-            Invocation.Builder builder = target.request();
-            builder.accept("application/json");
-            Response response = builder.get();
-            String book = builder.get(String.class);
-            Assert.assertEquals(book, "Test Book 1");
-        }
-        catch(WebApplicationException ex) {
-            Response r = ex.getResponse();
-            String message = ex.getMessage();
-            System.out.println(message);
-            System.out.println(r);
-            throw ex;
-        }
+    public void userIsShownBookPage() {
+        driver.get(contextPath + "/");
+        BookPage bookPage = new BookPage(contextPath, driver);
+        Assert.assertEquals(contextPath + "book.html", driver.getCurrentUrl());
     }
 
 }

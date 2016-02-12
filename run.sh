@@ -1,4 +1,5 @@
 #!/bin/bash
+wget http://www.apache.org/dyn/closer.cgi/tomee/tomee-1.7.3/apache-tomee-1.7.3-jaxrs.tar.gz
 docker-machine start default
 eval `docker-machine env default`
 docker build -f Dockerfile .

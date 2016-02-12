@@ -2,9 +2,9 @@ package amplitude.servlets;
 
 import amplitude.resource.Book;
 import amplitude.utils.FileProc;
+import org.apache.cxf.jaxrs.client.WebClient;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
@@ -17,21 +17,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 
+
 @RunWith(Arquillian.class)
 @RunAsClient
-public class WhenAccessingBook {
+public class WhenAccessingBookServicesTest {
 
     @ArquillianResource
     URL contextPath;
-
-    @Drone
-    ChromeDriver driver;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -61,10 +58,14 @@ public class WhenAccessingBook {
     }
 
     @Test
-    public void userIsShownBookPage() {
-        driver.get(contextPath + "/");
-        BookPage bookPage = new BookPage(contextPath, driver);
-        Assert.assertEquals(contextPath + "book.html", driver.getCurrentUrl());
+    public void bookNameIsCorrect() {
+        String path = contextPath + "";
+        System.out.println("creating client at " + path);
+        WebClient client = WebClient.create(path);
+        client.accept("application/json");
+        String book = client.path("/book/name").get(String.class);
+        Assert.assertFalse("Test Book 2".equals(book));
+        Assert.assertEquals("Test Book 1", book);
     }
 
 }

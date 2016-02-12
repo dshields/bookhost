@@ -26,16 +26,16 @@
 
   <packaging>war</packaging>
 
-<repositories>
-    <!--other repositories if any-->
-    <repository>
+  <repositories>
+      <!--other repositories if any-->
+      <repository>
         <id>project.local</id>
         <name>project</name>
         <url>file:${project.basedir}/libs</url>
-    </repository>
-</repositories>
+      </repository>
+  </repositories>
 
-    <dependencyManagement>
+  <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.arquillian</groupId>
@@ -52,19 +52,13 @@
                 <type>pom</type>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>mp3info</groupId>
       <artifactId>id3</artifactId>
       <version>1.6.0d8</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-rs-client</artifactId>
-        <version>3.1.4</version>
-        <scope>test</scope>
-        <type>pom</type>
     </dependency>
     <dependency>
         <groupId>org.arquillian.universe</groupId>
@@ -119,7 +113,7 @@
   </build>
 
   <properties>
-    <tomee.version>1.7.2</tomee.version>
+    <tomee.version>1.7.3</tomee.version>
     <openejb.javaee.api>6.0-6</openejb.javaee.api>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml>
