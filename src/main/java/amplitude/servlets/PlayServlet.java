@@ -4,10 +4,12 @@
  */
 package amplitude.servlets;
 
+import amplitude.resource.Book;
 import amplitude.utils.FileProc;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Hashtable;
 
+@WebServlet(name="PlayServlet",urlPatterns={"/play"})
 public class PlayServlet extends BaseServlet {
 
     static final long serialVersionUID = 1;
@@ -33,7 +36,6 @@ public class PlayServlet extends BaseServlet {
     protected void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Play
         response.setContentType("audio/mpeg");
-        // response.setContentLength(99999999);
         OutputStream os = response.getOutputStream();
         String fileName = null;
         try {
@@ -47,12 +49,7 @@ public class PlayServlet extends BaseServlet {
     }
 
     private String getCurrentSongFileName() {
-        File file = new File(System.getProperty("book"));
-        if(!file.exists())
-        {
-            throw new RuntimeException("Book not found: " + System.getProperty("book"));
-        }
-        return file.getAbsolutePath();
+        return Book.getBookFile().getAbsolutePath();
     }
 
     /*

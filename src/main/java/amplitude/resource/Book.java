@@ -33,7 +33,7 @@ public class Book {
         }
     }
 
-    private File getBookFile() {
+    public static File getBookFile() {
         File file = new File(System.getProperty("book"));
         if (!file.exists()) {
             throw new RuntimeException("Book not found: " + System.getProperty("book"));

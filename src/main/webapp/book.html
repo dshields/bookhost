@@ -1,5 +1,8 @@
 <html lang="en">
 <head>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/paper-audio-player/paper-audio-player.html">
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Book Host</title>
     <style>
@@ -12,8 +15,8 @@
         #bookImage {
             width: 320px;
             height: 200px;
-            background: red;
-            clear: both;
+            background: #2b009d;
+            margin: auto;
         }
 
         #bookInfo ul {
@@ -27,8 +30,9 @@
         <div id="bookImage"></div>
         <div id="bookInfo">
             <ul>
-                <li> Book Name</li>
-                <li> 05:30:13/10:23:45</li>
+                <li>
+                    <paper-audio-player src="song.mp3" color="#F05C38"></paper-audio-player>
+                </li>
             </ul>
         </div>
     </div>
