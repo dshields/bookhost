@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export CATALINA_HOME=/opt/tomee
+
+start() {
+ echo "Starting Tomcat"
+ /bin/su -s /bin/bash tomcat -c $CATALINA_HOME/bin/startup.sh
+}
+
+stop() {
+ echo "Stopping Tomcat"
+ /bin/su -s /bin/bash tomcat -c $CATALINA_HOME/bin/shutdown.sh
+}
+
+case $1 in
+  start|stop) $1;;
+  restart) stop; start;;
+  *) echo "Usage : $0 <start|stop|restart>"; exit 1;;
+esac
+
+exit 0
