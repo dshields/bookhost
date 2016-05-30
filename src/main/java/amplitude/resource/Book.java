@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +23,18 @@ import java.util.List;
  */
 
 @Path("/book")
+@XmlRootElement
 public class Book {
+
+    @GET
+    @Path("/")
+    @Produces("application/json")
+    public Response getBookInfo()
+    {
+        Response.ResponseBuilder response = Response.ok();
+        response.entity(new Book());
+        return response.build();
+    }
 
     @GET
     @Path("name")
