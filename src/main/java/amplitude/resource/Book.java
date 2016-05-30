@@ -1,14 +1,21 @@
 package amplitude.resource;
 
-import de.ueberdosis.mp3info.ID3Reader;
-import de.ueberdosis.mp3info.ID3Tag;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.mp3.MP3File;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.id3.ID3v1Tag;
+import org.jaudiotagger.tag.images.Artwork;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.util.List;
 
 /**
  * Created by dorwins on 2/7/16.
@@ -19,25 +26,53 @@ public class Book {
 
     @GET
     @Path("name")
-    @Produces ( "application/json")
+    @Produces("application/json")
     public String getBookName() {
-        return getBook().getTitle();
+        return getBook().getFirstTitle();
     }
 
-    public ID3Tag getBook() {
-        try {
-            ID3Tag tag = ID3Reader.readTag(new RandomAccessFile(getBookFile(), "r"));
-            return tag;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+    public ID3v1Tag getBook() {
+        ID3v1Tag tag = getBookFile().getID3v1Tag();
+        return tag;
     }
 
-    public static File getBookFile() {
-        File file = new File(System.getProperty("book"));
-        if (!file.exists()) {
-            throw new RuntimeException("Book not found: " + System.getProperty("book"));
+    @GET
+    @Path("image")
+    public Response getImage() {
+        List<Artwork> art = getBookFile().getID3v2Tag().getArtworkList();
+        if(art.size()<=0) return null;
+        Artwork artwork = art.get(0);
+        Response.ResponseBuilder response = Response.ok();
+        response.type(artwork.getMimeType());
+        response.entity(artwork.getBinaryData());
+        return response.build();
+    }
+
+    public static String getFilename() {
+        if (bookFile == null)
+            getBookFile();
+        return bookFile != null ? bookFile.getFile().getAbsolutePath() : null;
+    }
+
+
+    static MP3File bookFile = null;
+    private static MP3File getBookFile() {
+        if (bookFile == null) {
+            synchronized (bookFile) {
+                try {
+                    if (bookFile != null)
+                        return bookFile;
+                    File book = new File(System.getProperty("book"));
+                    if (!book.exists()) {
+                        throw new RuntimeException("File not found: " + System.getProperty("book"));
+                    }
+                    bookFile = (MP3File) AudioFileIO.read(book);
+                } catch (IOException | CannotReadException | ReadOnlyFileException | TagException | InvalidAudioFrameException ex) {
+                    throw new RuntimeException("Error reading file", ex);
+                }
+            }
         }
-        return file;
+        return bookFile;
     }
 }

@@ -62,7 +62,7 @@ public class WhenAccessingBookTest {
 
     @Test
     public void userIsShownBookPage() {
-        driver.get(contextPath + "/");
+        driver.get(contextPath + "");
         BookPage bookPage = new BookPage(contextPath, driver);
         Assert.assertEquals(contextPath + "book.html", driver.getCurrentUrl());
     }

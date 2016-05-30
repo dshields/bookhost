@@ -48,8 +48,8 @@ public class PlayServlet extends BaseServlet {
         }
     }
 
-    private String getCurrentSongFileName() {
-        return Book.getBookFile().getAbsolutePath();
+    public String getCurrentSongFileName() {
+        return Book.getFilename();
     }
 
     /*
