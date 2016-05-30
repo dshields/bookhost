@@ -1,5 +1,7 @@
 package amplitude.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -13,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -23,42 +24,48 @@ import java.util.List;
  */
 
 @Path("/book")
-@XmlRootElement
 public class Book {
 
     @GET
     @Path("/")
     @Produces("application/json")
-    public Response getBookInfo()
-    {
-        Response.ResponseBuilder response = Response.ok();
-        response.entity(new Book());
-        return response.build();
+    @JsonIgnore
+    public Book getBookInfo() {
+        Book b = new Book();
+        return b;
     }
 
     @GET
     @Path("name")
     @Produces("application/json")
+    @JsonProperty
     public String getBookName() {
         return getBook().getFirstTitle();
     }
 
 
-    public ID3v1Tag getBook() {
+    private ID3v1Tag getBook() {
         ID3v1Tag tag = getBookFile().getID3v1Tag();
         return tag;
     }
 
     @GET
     @Path("image")
-    public Response getImage() {
-        List<Artwork> art = getBookFile().getID3v2Tag().getArtworkList();
-        if(art.size()<=0) return null;
-        Artwork artwork = art.get(0);
+    @JsonIgnore
+    public Response getImageContent() {
         Response.ResponseBuilder response = Response.ok();
-        response.type(artwork.getMimeType());
-        response.entity(artwork.getBinaryData());
+        response.type(getImageMimeType());
+        response.entity(getArtwork());
         return response.build();
+
+    }
+
+    public String getImageMimeType() {
+        return getArtwork().getMimeType();
+    }
+
+    public byte[] getImage() {
+        return getArtwork().getBinaryData();
     }
 
     public static String getFilename() {
@@ -67,10 +74,10 @@ public class Book {
         return bookFile != null ? bookFile.getFile().getAbsolutePath() : null;
     }
 
+    static private MP3File bookFile = null;
+    static private Object lock = new Object();
 
-    static MP3File bookFile = null;
-    static Object lock = new Object();
-    private static MP3File getBookFile() {
+    static private MP3File getBookFile() {
         if (bookFile == null) {
             synchronized (lock) {
                 try {
@@ -88,4 +95,22 @@ public class Book {
         }
         return bookFile;
     }
+
+    static private Artwork artwork;
+
+    private Artwork getArtwork() {
+        if (artwork == null) {
+            synchronized (lock) {
+                if (artwork != null)
+                    return artwork;
+
+                List<Artwork> art = getBookFile().getID3v2Tag().getArtworkList();
+                if (art.size() <= 0)
+                    return null;
+                artwork = art.get(0);
+            }
+        }
+        return artwork;
+    }
+
 }
