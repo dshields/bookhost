@@ -17,10 +17,10 @@ war.archiveName = 'bookhost.war'
 
 dependencyManagement {
    imports {
-       mavenBom 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-bom:2.0.0'
-       mavenBom 'org.jboss.arquillian:arquillian-bom:1.1.5.Final'
+       mavenBom 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-bom:2.2.2'
+       mavenBom 'org.jboss.arquillian:arquillian-bom:1.1.11.Final'
        mavenBom 'org.jboss.arquillian.selenium:selenium-bom:2.50.1'
-       mavenBom 'org.jboss.arquillian.extension:arquillian-drone-bom:2.0.0.Beta1'
+       mavenBom 'org.jboss.arquillian.extension:arquillian-drone-bom:2.0.0.Final'
    }
 }
  
@@ -35,9 +35,14 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-1.2-api:2.1'
     compile 'com.googlecode.json-simple:json-simple:1.1.1'
     compile 'com.h2database:h2:1.4.182'
+    compile 'com.sun.xml.bind:jaxb-impl:2.2.11'
+    compile 'org.glassfish.jaxb:jaxb-runtime:2.2.11'
+    compile 'javax.el:el-api:2.2'
+    compile 'org.glassfish.web:el-impl:2.2'
+    compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.5.4'
 
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-    providedCompile 'org.apache.openejb:javaee-api:6.0-6'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile 'javax:javaee-api:7.0'
 
     testCompile 'commons-lang:commons-lang:2.4'
     testCompile 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-depchain'
@@ -45,8 +50,8 @@ dependencies {
     testCompile 'org.jboss.arquillian.extension:arquillian-drone-webdriver-depchain'
     testCompile "junit:junit:4.12"
 
-    testCompile 'org.apache.openejb:arquillian-tomee-embedded:1.7.3'
-    testCompile 'org.apache.openejb:tomee-jaxrs:1.7.3'
+    testCompile 'org.apache.tomee:arquillian-tomee-embedded:7.0.0'
+    testCompile 'org.apache.tomee:tomee-jaxrs:7.0.0'
     runtime 'javax.servlet:jstl:1.1.2'
 }
 
