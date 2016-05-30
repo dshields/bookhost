@@ -57,9 +57,10 @@ public class Book {
 
 
     static MP3File bookFile = null;
+    static Object lock = new Object();
     private static MP3File getBookFile() {
         if (bookFile == null) {
-            synchronized (bookFile) {
+            synchronized (lock) {
                 try {
                     if (bookFile != null)
                         return bookFile;
