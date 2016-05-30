@@ -1,8 +1,7 @@
 package amplitude.servlets;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,14 +17,7 @@ public abstract class BasePage {
     public BasePage(final URL contextURL, final WebDriver driver) {
         this.contextURL = contextURL;
         this.driver = driver;
-    }
-
-    public WebElement element(By by) {
-        return driver.findElement(by);
-    }
-
-    public void type(By by, String text) {
-        element(by).sendKeys(text);
+        PageFactory.initElements(driver,this);
     }
 
     public void waitForCurrentPage() {
@@ -35,5 +27,9 @@ public abstract class BasePage {
 
     public boolean isCurrentPage() {
         return isCurrentPage.apply(driver);
+    }
+
+    public String getTitle() {
+        return driver.getTitle();
     }
 }
