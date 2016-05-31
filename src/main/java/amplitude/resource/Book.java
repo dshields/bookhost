@@ -55,7 +55,7 @@ public class Book {
     public Response getImageContent() {
         Response.ResponseBuilder response = Response.ok();
         response.type(getImageMimeType());
-        response.entity(getArtwork());
+        response.entity(getArtwork().getBinaryData());
         return response.build();
 
     }
