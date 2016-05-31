@@ -1,0 +1,66 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-audio-player/paper-audio-player.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+
+
+<dom-module id="bookhost-element">
+    <template>
+        <iron-ajax auto id="getbook" url="/bookhost/book" handle-as="json" last-response="{{book}}"></iron-ajax>
+        <style>
+            #bookWindow {
+                width: 50%;
+                margin: auto;
+            }
+            #bookImage img
+            {
+                display: block;
+            }
+            #bookInfo ul {
+                width: 50%;
+                list-style-type: none;
+                display: block;
+            }
+
+        </style>
+        <div id="bookWindow">
+            <img id="bookImage" src="{{bookurl}}/image"/>
+            <div id="bookInfo">
+                <ul>
+                    <li>
+                        <paper-audio-player id="player" src="{{src}}" color="{{color}}" title$="{{book.bookName}}"></paper-audio-player>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'bookhost-element',
+
+            properties: {
+                src: {
+                    type: String,
+                    value: '/play',
+                },
+                color: {
+                    type: String,
+                    value: '#F05C38'
+                },
+                bookurl: {
+                    type: String,
+                    value: '/bookhost/book'
+                },
+                book: {
+                    type: Object,
+                    notify: true,
+                    value: function () {
+                        return { name: "XXX" };
+                    }
+                },
+            },
+
+        });
+    </script>
+</dom-module>
