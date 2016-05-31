@@ -5,7 +5,7 @@
 
 <dom-module id="bookhost-element">
     <template>
-        <iron-ajax auto id="getbook" url="/bookhost/book" handle-as="json" last-response="{{book}}"></iron-ajax>
+        <iron-ajax auto id="getbook" url="{{bookurl}}" handle-as="json" last-response="{{book}}"></iron-ajax>
         <style>
             .center
             {
