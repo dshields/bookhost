@@ -7,11 +7,7 @@
     <template>
         <iron-ajax auto id="getbook" url="/bookhost/book" handle-as="json" last-response="{{book}}"></iron-ajax>
         <style>
-            #bookWindow {
-                width: 50%;
-                margin: auto;
-            }
-            #bookImage img
+            .center
             {
                 display: block;
                 margin-left:auto;
@@ -21,11 +17,13 @@
                 width: 50%;
                 list-style-type: none;
                 display: block;
+                margin-left: auto;
+                margin-right: auto;
             }
 
         </style>
         <div id="bookWindow">
-            <img id="bookImage" src="{{bookurl}}/image"/>
+            <img id="bookImage" class="center" src="{{bookurl}}/image"/>
             <div id="bookInfo">
                 <ul>
                     <li>
