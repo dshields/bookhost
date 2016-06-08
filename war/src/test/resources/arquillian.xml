@@ -31,7 +31,7 @@
       </configuration>
     </container>
     -->
-    <!-- if you decided to use tomee adapter in the pom
+    <!-- if you decided to use tomee adapter in the pom -->
     <container qualifier="tomee" default="true">
       <configuration>
         <property name="httpPort">-1</property>
@@ -43,5 +43,5 @@
         <property name="properties" />
       </configuration>
     </container>
-    -->
+    <!-- -->
 </arquillian>

@@ -38,3 +38,5 @@ classes
 apache-tomee-1.7.3-jaxrs.tar.gz
 
 /.vagrant/
+
+build-output/
