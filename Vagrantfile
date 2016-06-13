@@ -3,7 +3,8 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "private_network", ip: "192.168.2.100"
   config.vm.synced_folder "dependencies", "/dependencies"
   config.vm.synced_folder "build-output", "/build-output"
   config.vm.synced_folder "war", "/home/vagrant/bookhost"

@@ -1,18 +1,20 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-audio-player/paper-audio-player.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/iron-localstorage/iron-localstorage.html">
 
 
 <dom-module id="bookhost-element">
     <template>
         <iron-ajax auto id="getbook" url="{{bookurl}}" handle-as="json" last-response="{{book}}"></iron-ajax>
+        <iron-localstorage id="lastoffset" useRaw="true" ></iron-localstorage>
         <style>
-            .center
-            {
+            .center {
                 display: block;
-                margin-left:auto;
-                margin-right:auto;
+                margin-left: auto;
+                margin-right: auto;
             }
+
             #bookInfo ul {
                 width: 50%;
                 list-style-type: none;
@@ -27,7 +29,8 @@
             <div id="bookInfo">
                 <ul>
                     <li>
-                        <paper-audio-player id="player" src="{{src}}" color="{{color}}" title$="{{book.bookName}}"></paper-audio-player>
+                        <paper-audio-player id="player" src="{{src}}" color="{{color}}"
+                                            title$="{{book.bookName}}" ></paper-audio-player>
                     </li>
                 </ul>
             </div>
@@ -56,10 +59,26 @@
                     type: Object,
                     notify: true,
                     value: function () {
-                        return { name: "XXX" };
+                        return {name: ""};
                     }
-                },
+                }
             },
+
+            listeners: {
+                'player.current-time-changed' : '_updateCurrentTime',
+                'iron-localstorage-load' : '_seekLastTime'
+            },
+
+            _updateCurrentTime: function () {
+                console.log("new time is " + this.$.player.currentTime);
+                this.$.lastoffset.set('value', this.$.player.currentTime);
+            },
+
+            _seekLastTime: function () {
+                console.log('seeking to ' + this.$.lastoffset.value);
+                this.$.player.$.audio.currentTime = this.$.lastoffset.value;
+            }
+
 
         });
     </script>
